@@ -1,0 +1,5 @@
+# .gitignore
+
+.vs
+Lightswitch/bin
+Lightswitch/bld

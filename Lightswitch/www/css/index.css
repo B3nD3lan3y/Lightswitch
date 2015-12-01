@@ -1,0 +1,55 @@
+﻿body {
+    background-color: #000000;
+}
+
+#switchplate {
+    background-color: #222222;
+    width: 3in;
+    height: 5in;
+    position: fixed;
+    margin-left: -1.5in;
+    margin-top: -2.5in;
+    left: 50%;
+    top: 50%;
+    border-radius: 0.05in;
+    border: 0.2in solid;
+    border-bottom-color: #111111;
+    border-right-color: #111111;
+    border-top-color: #333333;
+    border-left-color: #333333;
+}
+
+#screen {
+    width: 2.5in;
+    height: 2.5in;
+    position: absolute;
+    margin-left: -1.25in;
+    margin-top: -1.25in;
+    left: 50%;
+    top: 50%;
+}
+
+#switch {
+    fill: #222222;
+}
+
+#screen-circle {
+    fill: none;
+}
+
+.lit-border {
+    stroke: #ffffff;
+    stroke-width: 0.04;
+}
+
+#screen-mask-circle {
+    fill: #ffffff;
+}
+
+#black-background {
+    fill: #000000;
+}
+
+#white-background {
+    fill: #ffffff;
+}
