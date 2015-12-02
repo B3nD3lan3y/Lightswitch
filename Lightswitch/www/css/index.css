@@ -34,12 +34,11 @@
     fill: #222222;
 }
 
-#screen-circle.on {
-    fill: none;
-}
-
-#screen-circle.off {
+#screen-on-off {
+    transition-property: fill-opacity;
+    transition-duration: 1s;
     fill: #000000;
+    fill-opacity: 1;
 }
 
 .lit-border {

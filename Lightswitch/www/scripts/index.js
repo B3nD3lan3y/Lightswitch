@@ -9,14 +9,15 @@
 
     const MAX_TRAVEL_RADIUS = 40;
     const SWATCH_SIZE = 1000;
-    const SPEED = 1.0;
+    const SPEED_X = 0.2;
+    const SPEED_Y = 1.0;
 
     // DOM elements
     var snap;
     var rightSwatch;
     var leftSwatch;
     var theSwitch;
-    var screenCircle;
+    var screenOnOff;
     
     // Other variables
     var lookupCanvasContext;
@@ -39,7 +40,7 @@
         rightSwatch = snap.select("#right-swatch");
         leftSwatch = snap.select("#left-swatch");
         theSwitch = snap.select("#switch");
-        screenCircle = snap.select("#screen-circle");
+        screenOnOff = snap.select("#screen-on-off");
 
         // Add event handlers
         theSwitch.drag(dragMove, dragStart, dragEnd);
@@ -69,8 +70,7 @@
 
     function dragStart(x, y, event)
     {
-        screenCircle.removeClass("off");
-        screenCircle.addClass("on");
+        screenOnOff.animate({ "fill-opacity": 0 }, 50);
 
         event.preventDefault();
 
@@ -92,8 +92,7 @@
 
     function dragEnd(event)
     {
-        screenCircle.removeClass("on");
-        screenCircle.addClass("off");
+        screenOnOff.animate({ "fill-opacity": 1 }, 50);
 
         theSwitch.animate({ "transform": "translate(0 0)" }, 50);
         clearInterval(updateTimer);
@@ -106,8 +105,8 @@
         var dx = theSwitch.transform().localMatrix.e;
         var dy = theSwitch.transform().localMatrix.f;
 
-        colorX += SPEED * dx;
-        colorY += SPEED * dy;
+        colorX += SPEED_X * dx;
+        colorY += SPEED_Y * dy;
 
 
         // Rollover when hitting an X bound
@@ -131,11 +130,25 @@
             colorY = SWATCH_SIZE;
         }
 
-
-        console.log(Snap.format("{dx} {dy}", { "dx": dx, "dy": dy }));
-
         rightSwatch.transform("translate(" + (-colorX) + " " + (-colorY) + ")")
         leftSwatch.transform("translate(" + (-colorX - 1000) + " " + (-colorY) + ")")
+
+        lightColor = getColor(colorX, colorY);
+
+        document.body.style.backgroundColor = lightColor;
+    }
+
+    function getColor(x, y)
+    {
+        while (x < 0)
+        {
+            x += SWATCH_SIZE;
+        }
+
+        var raw = lookupCanvasContext.getImageData(Math.floor(x), Math.floor(y), 1, 1);
+
+        return "rgb(" + raw.data[0] + ", " + raw.data[1] + ", " + raw.data[2] + ")";
+
     }
 
 } )();
