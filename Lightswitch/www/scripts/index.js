@@ -7,36 +7,65 @@
 (function () {
     "use strict";
 
+    const MAX_TRAVEL_RADIUS = 40;
+    const SWATCH_SIZE = 1000;
+    const SPEED = 1.0;
+
+    // DOM elements
+    var snap;
+    var rightSwatch;
+    var leftSwatch;
+    var theSwitch;
+    var screenCircle;
+    
+    // Other variables
+    var lookupCanvasContext;
+    var lightColor;
+    var colorX;
+    var colorY;
+    var updateTimer;
+
     document.addEventListener( 'deviceready', onDeviceReady.bind( this ), false );
 
     function onDeviceReady() {
-        // Handle the Cordova pause and resume events
-        document.addEventListener( 'pause', onPause.bind( this ), false );
-        document.addEventListener( 'resume', onResume.bind( this ), false );
-        
+
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
     };
 
-    function onPause() {
-        // TODO: This application has been suspended. Save application state here.
-    };
+    window.onload = function()
+    {
+        // Load DOM elements
+        snap = Snap("svg");
+        rightSwatch = snap.select("#right-swatch");
+        leftSwatch = snap.select("#left-swatch");
+        theSwitch = snap.select("#switch");
+        screenCircle = snap.select("#screen-circle");
 
-    function onResume() {
-        // TODO: This application has been reactivated. Restore application state here.
-    };
+        // Add event handlers
+        theSwitch.drag(dragMove, dragStart, dragEnd);
 
+        // Initialize other variable
+        lightColor = "#ffffff";
+        colorX = 0;
+        colorY = 1000;
 
+        lookupCanvasContext = constructLookupCanvas();
+    }
 
-    const CONFIG = {
-        speed: 1.0,
-    };
+    function constructLookupCanvas()
+    {
+        var can = document.createElement('canvas');
+        can.height = SWATCH_SIZE;
+        can.width = SWATCH_SIZE;
 
-    var snap = Snap("svg");
-    var swatches = [snap.select("#swatch-1"), snap.select("#swatch-2")];
-    var theSwitch = snap.select("#switch");
-    var screenCircle = snap.select("#screen-circle");
+        var ctx = can.getContext('2d');
 
-    theSwitch.drag(dragMove, dragStart, dragEnd);
+        var image = new Image();
+        image.src = "images/hsl.png";
+        ctx.drawImage(image, 0, 0);
+
+        return ctx;
+    }
 
     function dragStart(x, y, event)
     {
@@ -45,10 +74,18 @@
 
         event.preventDefault();
 
+        updateTimer = setInterval(update, 40);
     }
 
     function dragMove(dx, dy, x, y, event)
     {
+        if (dx * dx + dy * dy > MAX_TRAVEL_RADIUS * MAX_TRAVEL_RADIUS)
+        {
+            var scale = MAX_TRAVEL_RADIUS / Math.sqrt(dx * dx + dy * dy)
+            dx *= scale;
+            dy *= scale;
+        }
+
         theSwitch.transform("translate(" + dx + " " + dy + ")");
         event.preventDefault();
     }
@@ -58,7 +95,8 @@
         screenCircle.removeClass("on");
         screenCircle.addClass("off");
 
-        theSwitch.animate({ "transform": "translate(0 0)" }, 100);
+        theSwitch.animate({ "transform": "translate(0 0)" }, 50);
+        clearInterval(updateTimer);
 
         event.preventDefault();
     }
@@ -67,11 +105,37 @@
     {
         var dx = theSwitch.transform().localMatrix.e;
         var dy = theSwitch.transform().localMatrix.f;
-        for (swatch in swatches)
+
+        colorX += SPEED * dx;
+        colorY += SPEED * dy;
+
+
+        // Rollover when hitting an X bound
+        if (colorX < (-SWATCH_SIZE / 2))
         {
-            
+            colorX += SWATCH_SIZE;
         }
-        event.preventDefault();
+        
+        else if (colorX > (SWATCH_SIZE / 2))
+        {
+            colorX -= SWATCH_SIZE
+        }
+
+        // Stop when hitting a Y bound
+        if (colorY < 0)
+        {
+            colorY = 0;
+        }
+        else if (colorY > SWATCH_SIZE)
+        {
+            colorY = SWATCH_SIZE;
+        }
+
+
+        console.log(Snap.format("{dx} {dy}", { "dx": dx, "dy": dy }));
+
+        rightSwatch.transform("translate(" + (-colorX) + " " + (-colorY) + ")")
+        leftSwatch.transform("translate(" + (-colorX - 1000) + " " + (-colorY) + ")")
     }
 
 } )();

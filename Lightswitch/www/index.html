@@ -15,24 +15,23 @@
 </head>
 <body>
     <div id="switchplate">
-        <svg id="screen" viewBox="-100 -100 200 200">
+        <svg id="screen" viewBox="-125 -125 250 250">
             <defs>
-                <mask id="screen-mask" x="-100" y="-100" width="200" height="200">
-                    <circle cx="0" cy="0" r="100" id="screen-mask-circle"></circle>
+                <mask id="screen-mask" x="-125" y="-125" width="250" height="250">
+                    <circle cx="0" cy="0" r="125" id="screen-mask-circle"></circle>
                 </mask>
             </defs>
             <g mask="url(#screen-mask)">
-                <rect id="white-background" x="-100" y="-100" width="200" height="100"></rect>
-                <rect id="black-background" x="-100" y="000" width="200" height="100"></rect>
-                <image id="swatch-1" class="colors" xlink:href="images/hsl.png" width="1000" height="1000" transform="matrix(0.5 0 0 0.5 -0 -500)"></image>
-                <image id="swatch-2" class="colors" xlink:href="images/hsl.png" width="1000" height="1000" transform="matrix(0.5 0 0 0.5 -500 -500)"></image>
+                <rect id="white-background" x="-125" y="-125" width="250" height="125"></rect>
+                <rect id="black-background" x="-125" y="0" width="250" height="125"></rect>
+                <image id="right-swatch" class="colors" xlink:href="images/hsl.png" width="1000" height="1000" transform="translate(0, -1000)"></image>
+                <image id="left-swatch" class="colors" xlink:href="images/hsl.png" width="1000" height="1000" transform="translate(-1000, -1000)"></image>
             </g>
-            <circle id="screen-circle" class="off" cx="0" cy="0" r="100"></circle>
+            <circle id="screen-circle" class="off" cx="0" cy="0" r="125"></circle>
             
-            <circle id="switch" class="lit-border" cx="0" cy="0" r="25"></circle>
+            <circle id="switch" class="lit-border" cx="0" cy="0" r="40"></circle>
         </svg>
     </div>
-
 
     <script src="scripts/snap/snap.svg.js"></script>
     <!-- Cordova reference, this is added to your app when it's built. -->
