@@ -24,15 +24,17 @@
             <g mask="url(#screen-mask)">
                 <rect id="white-background" x="-1" y="-1" width="2" height="1"></rect>
                 <rect id="black-background" x="-1" y="0" width="2" height="1"></rect>
-                <image id="colors-one" xlink:href="images/hsl.png" width="10" height="10" transform="matrix(0.5 0 0 0.5 -0 -5)"></image>
-                <image id="colors-two" xlink:href="images/hsl.png" width="10" height="10" transform="matrix(0.5 0 0 0.5 -5 -5)"></image>
+                <image id="swatch-1" class="colors" xlink:href="images/hsl.png" width="10" height="10" transform="matrix(0.5 0 0 0.5 -0 -5)"></image>
+                <image id="swatch-2" class="colors" xlink:href="images/hsl.png" width="10" height="10" transform="matrix(0.5 0 0 0.5 -5 -5)"></image>
             </g>
-            <circle id="screen-circle" class="lit-border" cx="0" cy="0" r="0.98"></circle>
+            <circle id="screen-circle" class="off" cx="0" cy="0" r="1"></circle>
             
             <circle id="switch" class="lit-border" cx="0" cy="0" r="0.25"></circle>
         </svg>
     </div>
 
+
+    <script src="scripts/snap/snap.svg-min.js"></script>
     <!-- Cordova reference, this is added to your app when it's built. -->
     <script src="cordova.js"></script>
     <script src="scripts/platformOverrides.js"></script>
