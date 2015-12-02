@@ -42,11 +42,15 @@
     {
         screenCircle.removeClass("off");
         screenCircle.addClass("on");
+
+        event.preventDefault();
+
     }
 
     function dragMove(dx, dy, x, y, event)
     {
-
+        theSwitch.transform("translate(" + dx + " " + dy + ")");
+        event.preventDefault();
     }
 
     function dragEnd(event)
@@ -54,6 +58,9 @@
         screenCircle.removeClass("on");
         screenCircle.addClass("off");
 
+        theSwitch.animate({ "transform": "translate(0 0)" }, 100);
+
+        event.preventDefault();
     }
 
     function update()
@@ -64,6 +71,7 @@
         {
             
         }
+        event.preventDefault();
     }
 
 } )();

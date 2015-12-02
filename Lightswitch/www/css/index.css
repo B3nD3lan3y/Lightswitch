@@ -4,15 +4,15 @@
 
 #switchplate {
     background-color: #222222;
-    width: 3in;
-    height: 5in;
+    width: 300px;
+    height: 500px;
     position: fixed;
-    margin-left: -1.5in;
-    margin-top: -2.5in;
+    margin-left: -150px;
+    margin-top: -250px;
     left: 50%;
     top: 50%;
-    border-radius: 0.05in;
-    border: 0.2in solid;
+    border-radius: 5px;
+    border: 20px solid;
     border-bottom-color: #111111;
     border-right-color: #111111;
     border-top-color: #333333;
@@ -20,11 +20,11 @@
 }
 
 #screen {
-    width: 2.5in;
-    height: 2.5in;
+    width: 200px;
+    height: 200px;
     position: absolute;
-    margin-left: -1.25in;
-    margin-top: -1.25in;
+    margin-left: -100px;
+    margin-top: -100px;
     left: 50%;
     top: 50%;
 }
@@ -43,7 +43,7 @@
 
 .lit-border {
     stroke: #ffffff;
-    stroke-width: 0.04;
+    stroke-width: 4;
 }
 
 #screen-mask-circle {
