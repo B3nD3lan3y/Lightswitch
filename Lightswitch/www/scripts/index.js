@@ -9,7 +9,7 @@
 
     const MAX_TRAVEL_RADIUS = 40;
     const SWATCH_SIZE = 1000;
-    const SPEED_X = 0.2;
+    const SPEED_X = 0.1;
     const SPEED_Y = 1.0;
 
     // DOM elements

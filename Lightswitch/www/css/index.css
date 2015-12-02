@@ -4,7 +4,7 @@
 }
 
 #switchplate {
-    background-color: #222222;
+    background-color: none;
     width: 300px;
     height: 500px;
     position: fixed;
@@ -14,10 +14,10 @@
     top: 50%;
     border-radius: 5px;
     border: 20px solid;
-    border-bottom-color: #111111;
-    border-right-color: #111111;
-    border-top-color: #333333;
-    border-left-color: #333333;
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+    border-right-color: rgba(0, 0, 0, 0.2);
+    border-top-color: rgba(255, 255, 255, 0.2);
+    border-left-color: rgba(255, 255, 255, 0.2);
 }
 
 #screen {
