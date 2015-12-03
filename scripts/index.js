@@ -5,8 +5,9 @@
 
     const MAX_TRAVEL_RADIUS = 40;
     const SWATCH_SIZE = 1000;
-    const SPEED_X = 0.1;
-    const SPEED_Y = 1.0;
+    const SPEED_X = 20;
+    const SPEED_Y = 40;
+    const SPEED_EXPONENT = 3;
 
     // DOM elements
     var snap;
@@ -59,7 +60,7 @@
 
     function dragStart(x, y, event)
     {
-        screenOnOff.animate({ "fill-opacity": 0 }, 50);
+        screenOnOff.animate({ "fill-opacity": 0 }, 25);
 
         event.preventDefault();
 
@@ -81,7 +82,7 @@
 
     function dragEnd(event)
     {
-        screenOnOff.animate({ "fill-opacity": 1 }, 50);
+        screenOnOff.animate({ "fill-opacity": 1 }, 25);
 
         theSwitch.animate({ "transform": "translate(0 0)" }, 50);
         clearInterval(updateTimer);
@@ -94,9 +95,8 @@
         var dx = theSwitch.transform().localMatrix.e;
         var dy = theSwitch.transform().localMatrix.f;
 
-        colorX += SPEED_X * dx;
-        colorY += SPEED_Y * dy;
-
+        colorX += SPEED_X * Math.pow(dx / MAX_TRAVEL_RADIUS, SPEED_EXPONENT); // Uncomment the following for even exponents: * (dx >= 0 ? 1 : -1);
+        colorY += SPEED_Y * Math.pow(dy / MAX_TRAVEL_RADIUS, SPEED_EXPONENT); // Uncomment the following for even exponents: * (dy >= 0 ? 1 : -1);
 
         // Rollover when hitting an X bound
         if (colorX < (-SWATCH_SIZE / 2))
@@ -123,8 +123,8 @@
         leftSwatch.transform("translate(" + (-colorX - 1000) + " " + (-colorY) + ")")
 
         lightColor = getColor(colorX, colorY);
-
-        document.body.style.backgroundColor = lightColor;
+        
+        colorize(lightColor);
     }
 
     function getColor(x, y)
@@ -136,8 +136,21 @@
 
         var raw = lookupCanvasContext.getImageData(Math.floor(x), Math.floor(y), 1, 1);
 
-        return "rgb(" + raw.data[0] + ", " + raw.data[1] + ", " + raw.data[2] + ")";
+        return {
+            red: raw.data[0],
+            green: raw.data[1],
+            blue: raw.data[2],
+        };
 
+    }
+    
+    function colorize(color)
+    {
+        var colorString = "rgb(" + color.red + ", " + color.green + ", " + color.blue + ")";
+        
+        document.body.style.backgroundColor = colorString;
+        document.getElementById("switchplate").style.backgroundColor = colorString;
+        theSwitch.attr("fill", colorString);
     }
 
 } )();
