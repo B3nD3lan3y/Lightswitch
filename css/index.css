@@ -30,10 +30,6 @@
     top: 50%;
 }
 
-#switch {
-    /* fill: rgb(0, 0, 0); */
-}
-
 #screen-on-off {
     transition-property: fill-opacity;
     transition-duration: 1s;
@@ -56,4 +52,20 @@
 
 #white-background {
     fill: #ffffff;
+}
+
+#github-link {
+    z-index: -1;
+    display: block;
+    height: 32px;
+    width: 32px;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    opacity: 0.2;
+}
+
+#github-link img {
+    height: 32px;
+    width: 32px;
 }

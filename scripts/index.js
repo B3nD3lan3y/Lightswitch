@@ -1,6 +1,4 @@
-﻿/// <reference path="../scripts/snap/snap.svg.js" />
-
-(function () {
+﻿(function () {
     "use strict";
 
     const MAX_TRAVEL_RADIUS = 40;
